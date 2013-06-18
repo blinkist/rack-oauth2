@@ -7,8 +7,8 @@ module Rack
       delegate :get, :post, :put, :delete, :to => :httpclient
 
       def initialize(attributes = {})
-        (required_attributes + optional_attributes).each do |key|
-          self.send :"#{key}=", attributes[key]
+        attributes.each do |key, value|
+          self.send :"#{key}=", value
         end
         @token_type = self.class.name.demodulize.underscore.to_sym
         @httpclient = Rack::OAuth2.http_client("#{self.class} (#{VERSION})") do |config|
