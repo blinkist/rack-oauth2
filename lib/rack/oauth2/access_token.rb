@@ -10,8 +10,8 @@ module Rack
       alias_method :to_s, :access_token
 
       def initialize(attributes = {})
-        (required_attributes + optional_attributes).each do |key|
-          self.send :"#{key}=", attributes[key]
+        attributes.each do |key, value|
+          self.send :"#{key}=", value
         end
         @raw_attributes = attributes
         @token_type = self.class.name.demodulize.underscore.to_sym
